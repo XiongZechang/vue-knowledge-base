@@ -1,9 +1,10 @@
-<template>
-  index
-</template>
-<script lang="ts">
+<script setup lang="ts">
 
 </script>
+<template>
+    knowledge-index
+</template>
+
 <style lang="less" scoped>
 
 </style>

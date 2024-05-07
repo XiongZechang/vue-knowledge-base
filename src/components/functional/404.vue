@@ -1,5 +1,5 @@
 <template>
-  index
+    404
 </template>
 <script lang="ts">
 
