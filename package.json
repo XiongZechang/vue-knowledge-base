@@ -1,20 +1,35 @@
 {
-  "name": "vite-vue-typescript-starter",
+  "name": "vue-knowledge-base",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
+    "start": "vite start",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.26"
+    "axios": "^1.6.8",
+    "element-plus": "^2.7.2",
+    "js-cookie": "^3.0.5",
+    "less": "^4.2.0",
+    "nprogress": "^0.2.0",
+    "sass-loader": "^14.2.1",
+    "vue": "^3.4.26",
+    "vue-router": "^4.3.2",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@vitejs/plugin-vue": "^5.0.4",
     "typescript": "^5.2.2",
     "vite": "^5.2.10",
     "vue-tsc": "^2.0.16"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
