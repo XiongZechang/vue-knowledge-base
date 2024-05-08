@@ -2,7 +2,7 @@
 
 </script>
 <template>
-    knowledge-index
+    knowledge-add
 </template>
 
 <style lang="less" scoped>
