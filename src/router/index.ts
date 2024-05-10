@@ -13,7 +13,7 @@ export const publicRoutes: Array<RouteRecordRaw> = [
         }
 	},
     {
-        path: '/knowledge',
+        path: '/',
         name: 'knowledge',
         component: () => import('../components/knowledge/index.vue'),
 		meta: {
