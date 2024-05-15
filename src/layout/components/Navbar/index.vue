@@ -5,23 +5,22 @@
             :default-active="activeIndex"
             class="menu"
             mode="horizontal"
-            
+            router="true"
             :ellipsis="false"
             @select="handleSelect"
         >
-  
-            <el-menu-item index="0">
+            <el-menu-item index="/">
                 <img
                 style="width: 50px"
                 src="../../../assets/icon/logo.png"
                 alt="Element logo"
                 />
             </el-menu-item>
-            <el-sub-menu index="1">
+            <el-sub-menu index="/knowledge/list">
                 <template #title>知识库</template>
-                <el-menu-item index="1-1">社区知识库</el-menu-item>
-                <el-menu-item index="1-2">团队知识库</el-menu-item>
-                <el-menu-item index="1-3">私人知识库</el-menu-item>
+                <el-menu-item index="/knowledge/add">添加知识</el-menu-item>
+                <el-menu-item index="/knowledge/update">修改知识</el-menu-item>
+                <el-menu-item index="/knowledge/detail">详情</el-menu-item>
             </el-sub-menu>
             <el-menu-item index="2">问答服务</el-menu-item>
                 <div class="inputContainer">
@@ -36,10 +35,7 @@
                             </el-button>
                         </template>
                     </el-input>
-
                 </div>
-            
-        
             <div class="flex-grow" />
             <el-menu-item index="4">登录</el-menu-item>
             <!-- </div> -->
