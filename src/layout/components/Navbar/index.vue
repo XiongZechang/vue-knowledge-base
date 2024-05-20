@@ -18,6 +18,7 @@
             </el-menu-item>
             <el-sub-menu index="/knowledge/list">
                 <template #title>知识库</template>
+                <el-menu-item index="/knowledge/list">知识列表</el-menu-item>
                 <el-menu-item index="/knowledge/add">添加知识</el-menu-item>
                 <el-menu-item index="/knowledge/update">修改知识</el-menu-item>
                 <el-menu-item index="/knowledge/detail">详情</el-menu-item>
@@ -37,10 +38,13 @@
                     </el-input>
                 </div>
             <div class="flex-grow" />
-            <el-menu-item index="4">登录</el-menu-item>
+            <el-sub-menu index="/login">
+                <template #title>用户</template>
+                <el-menu-item index="/login">登录</el-menu-item>
+                <el-menu-item index="/register">注册</el-menu-item>
+                <!-- <el-menu-item index="/user">用户信息</el-menu-item> -->
+            </el-sub-menu>
             <!-- </div> -->
-
-        
         </el-menu>
     </el-affix>
   </div>
