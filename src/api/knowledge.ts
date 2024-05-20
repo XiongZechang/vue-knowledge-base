@@ -18,7 +18,7 @@ export function addKnowledge(data: any) {
 
 export function getKnowledgeDetail(data: any) {
     return request({
-        url: '/user/ks/details',
+        url: '/user/ks/'+data.kbid+'/'+data.kid,
         method: 'get',
         data: data
     })
