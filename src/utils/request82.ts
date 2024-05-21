@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getToken } from './auth';
 
 const service = axios.create({
-    baseURL: "/api82",
+    baseURL: "http://43.138.100.3:8082/",
     timeout:5000,
 })
 service.interceptors.request.use(
