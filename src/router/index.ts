@@ -9,6 +9,14 @@ export const publicRoutes: Array<RouteRecordRaw> = [
 		redirect:'/knowledge/list'
 	},
 	{
+		path:'/index',
+		component: () => import('../components/index/index.vue'),
+		name: 'index',
+		meta: {
+			title: 'index'
+		}
+	},
+	{
 		path: '/knowledge/type',
 		component: () => import('../components/knowledge/typedetail.vue'),
 		name: 'knowledgeType',
@@ -57,13 +65,30 @@ export const publicRoutes: Array<RouteRecordRaw> = [
 		}
 	},
 	{
+		path: '/chat',
+		name: 'chat',
+		component: () => import('../components/chat/chat.vue'),
+		meta: {
+			title: 'chat'
+		}
+	},
+	{
 		path: '/register',
 		name: 'register',
 		component: () => import('../components/login/register.vue'),
 		meta: {
 			title: 'register'
 		}
-	}
+	},
+	{
+		path: '/:pathMatch(.*)*',
+		component: () => import('../components/functional/404.vue'),
+		name: '404',
+		meta: {
+			title: '404'
+		}
+	},
+
 ];
 
 const router = createRouter({

@@ -9,7 +9,7 @@
             :ellipsis="false"
             @select="handleSelect"
         >
-            <el-menu-item index="/">
+            <el-menu-item index="/index">
                 <img
                 style="width: 50px"
                 src="../../../assets/icon/logo.png"
@@ -23,7 +23,7 @@
                 <el-menu-item index="/knowledge/update">修改知识</el-menu-item>
                 <el-menu-item index="/knowledge/detail">详情</el-menu-item>
             </el-sub-menu>
-            <el-menu-item index="2">问答服务</el-menu-item>
+            <el-menu-item index="/chat">问答服务</el-menu-item>
                 <div class="inputContainer">
                     <el-input
                         v-model="searchInput"
