@@ -183,7 +183,8 @@
           friendMessage.orgcontent = friendMessage.orgcontent.replace(/\*\*\s*([^*]*?)\s*(:\s*)?\*\*/g, '**$1$2**');
           // 更新 friendMessage.content，这里假设 md.render 可以处理累加的字符串
           friendMessage.content = this.md.render(friendMessage.orgcontent);
-
+          this.$forceUpdate();
+          this.scrollToBottom();
           if (data.header.code !== 0) {
             console.log('出错了', data.header.code, ':', data.header.message)
             // 出错了"手动关闭连接"
@@ -259,7 +260,7 @@
   }
   
   .llm-chat-demo {
-    width: 58%;
+    width: 80%;
     margin: auto;
     /* margin-left: 20px; */
     /* font-family: "黑体", "SimHei", sans-serif; */
@@ -276,7 +277,7 @@
   }
   
   .right-body {
-    height: 80%;
+    height: 75%;
     overflow-y: auto;
   }
   
@@ -290,13 +291,13 @@
   .nodata {
     background-image: url("../../assets/chat.png");
     background-repeat: no-repeat;
-    background-size: 70%;
+    background-size: 80%;
     background-position: center 40%;
   }
   
   .main-message {
     margin: auto;
-    width: 58%;
+    width: 80%;
     justify-content: center;
   }
   
@@ -326,7 +327,7 @@
   }
   
   .input {
-    width: 58%;
+    width: 80%;
     margin-right: 5px;
   }
   

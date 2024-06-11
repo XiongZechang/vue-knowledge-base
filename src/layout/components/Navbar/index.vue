@@ -37,11 +37,10 @@
                         </template>
                     </el-input>
                 </div>
-            <div class="flex-grow" />
+            <div class="flex-grow"/>
             <el-sub-menu index="/login">
-                <template #title>用户</template>
-                <el-menu-item index="/login">登录</el-menu-item>
-                <el-menu-item index="/register">注册</el-menu-item>
+                <template #title>你好，{{ username }}</template>
+                <el-menu-item @click="logout">登出</el-menu-item>
                 <!-- <el-menu-item index="/user">用户信息</el-menu-item> -->
             </el-sub-menu>
             <!-- </div> -->
@@ -51,16 +50,29 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
+  import { removeToken, getName } from '../../../utils/auth';
   const activeIndex = ref('1')
   const searchInput = ref('')
+
+  let username:string | undefined = ''
   const handleSelect = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
     if(key == '2'){
         console.log('11111')
     }
   }
+  const logout = () => {
+    console.log('logout')
+    removeToken()
+    window.location.href = '/login'
+  }  
 
+  onMounted(() => {
+    username = getName()
+    console.log(username)
+    console.log('mounted')
+  })
 </script>
 
 <style lang="less" scoped>

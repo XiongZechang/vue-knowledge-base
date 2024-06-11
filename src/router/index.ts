@@ -110,3 +110,5 @@ export const setupRouter = (app: App<Element>) => {
 	app.use(router);
 };
 
+
+export { router };

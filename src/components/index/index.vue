@@ -1,93 +1,140 @@
 <template>
-    <div class="index dark:text-slate-400 dark:bg-slate-900">
-    <Navbar />
-    <main class="max-w-5xl px-4 mx-auto pb-22 sm:px-6 md:px-8 xl:px-12 xl:max-w-6xl">
-      <div class="pt-8 pb-7 sm:pb-8 sm:text-center">
-        <h1 class="relative mb-4 text-4xl tracking-tight font-blimone sm:text-5xl lg:text-6xl text-slate-900 dark:text-slate-200">
-          知识库
-        </h1>
-        <p class="text-2xl text-slate-800 dark:text-slate-400">知识共享，探索知识的海洋，开启智慧的世界</p>
+  <div class="home-page">
+    <header class="header">
+      <div class="logo">fast-vue3</div>
+      <nav class="nav">
+        <a href="#">介绍</a>
+        <a href="#">加入我们</a>
+        <el-switch v-model="darkMode" @change="toggleDarkMode"></el-switch>
+        <a href="https://github.com/" target="_blank" class="github-icon">
+          <!-- <el-icon><GithubFilled /></el-icon> -->
+        </a>
+      </nav>
+    </header>
+    <main class="main">
+      <h1>Fast-Vue3</h1>
+      <h2>一个快速开发的Vue PC端脚手架</h2>
+      <div class="buttons">
+        <el-button type="primary">开始</el-button>
+        <el-button>Github仓库</el-button>
       </div>
-      <el-carousel trigger="click" height="150px">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <h3 class="small justify-center" text="2xl">{{ item }}</h3>
-        </el-carousel-item>
-      </el-carousel>
+      <div class="features">
+        <div class="feature">
+          <!-- <el-icon><Lightbulb /></el-icon> -->
+          <h3>开箱即用</h3>
+          <p>PC端vue3开发模版，集成必要的技术栈，方便你的快速开发</p>
+        </div>
+        <div class="feature">
+          <!-- <el-icon><Box /></el-icon> -->
+          <h3>代码规范</h3>
+          <p>完整的eslint、prettier、stylelint规范，助你更好的管理代码</p>
+        </div>
+        <div class="feature">
+          <!-- <el-icon><Wrench /></el-icon> -->
+          <h3>配置优化</h3>
+          <p>完整配置的vue脚手架插件和优化，让你专注于业务开发，更高效</p>
+        </div>
+        <div class="feature">
+          <!-- <el-icon><More /></el-icon> -->
+          <h3>More</h3>
+          <p>加入我们，更多能力等你挖掘....</p>
+        </div>
+      </div>
     </main>
-    <article class="space-y-20 sm:space-y-32 md:space-y-40 lg:space-y-44">
-      <ul class="flex flex-wrap items-center justify-center py-6 sm:px-20 lg:px-36 xl:px-20 sm:justify-start lg:justify-start">
-        <li v-for="(item, index) in data" :key="index * 1.1" class="px-3 pt-4 md:px-4 sm:pt-5 md:pb-8">
-          <figure class="flex-none shadow-lg rounded-xl w-80 md:w-100">
-            <blockquote
-              class="px-6 py-8 text-lg font-semibold leading-8 bg-white rounded-t-xl md:p-5 md:text-base md:leading-8 text-slate-700 dark:text-slate-300 dark:bg-slate-800 dark:highlight-white/5"
-            >
-              <p v-html="item.kbname"></p>
-            </blockquote>
-            <figcaption :class="`text-lg flex items-center p-6 space-x-4 leading-6 text-white md:px-10 md:py-6 rounded-b-xl `">
-              <div class="flex items-center justify-center flex-none bg-white rounded-full w-14 h-14">
-              </div>
-              <div class="flex-auto">
-                <div class="text-base font-semibold text-slate-700">
-                  {{ item.knowledge }}
-                  <p>{{ item.author }}</p>
-                </div>
-              </div>
-            </figcaption>
-          </figure>
-        </li>
-      </ul>
-    </article>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { Navbar } from '../../layout/components';
-import { getKnowledge, getKnowledgeDetail, getKnowledgeBaseDetail } from '../../api/knowledge';
+<script setup lang="ts">
+import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
+import 'element-plus/theme-chalk/index.css';
+// import { GithubFilled, Lightbulb, Box, Wrench, More } from '@element-plus/icons-vue';
 
-export default defineComponent({
-    name: 'Index',
-    components: {
-        Navbar,
-    },
-    data() {
-        return {
-            data: [],
-        };
-    },
-    methods: {},
-    async mounted() {
-        const res = await getKnowledge();
-        this.data = res.data.data;
-        console.log(this.data)
-        if(res.status != 200){
-        ElMessage({
-                message: '数据获取失败！',
-                type: 'error',
-            })
-        }
-    }
-});
+const darkMode = ref(false);
+
+const toggleDarkMode = () => {
+  ElMessage({
+    message: `Dark mode is ${darkMode.value ? 'on' : 'off'}`,
+    type: 'info',
+  });
+};
 </script>
 
-<style lang="less" scoped>
-.index {
-    margin: 0 150px;
-}
-.el-carousel__item h3 {
-color: #475669;
-opacity: 0.75;
-line-height: 150px;
-margin: 0;
-text-align: center;
+<style scoped>
+.home-page {
+  font-family: 'Arial, sans-serif';
+  text-align: center;
 }
 
-.el-carousel__item:nth-child(2n) {
-background-color: #99a9bf;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
 }
 
-.el-carousel__item:nth-child(2n + 1) {
-background-color: #d3dce6;
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.github-icon {
+  margin-left: 10px;
+}
+
+.main {
+  padding: 50px 20px;
+}
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.buttons {
+  margin-bottom: 40px;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  width: 200px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.feature h3 {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.feature p {
+  color: #666;
+  font-size: 14px;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
     <div class="register">
-        <Navbar/>
     </div>
     <div class="registerForm">
         <el-form ref="registerForm" :model="registerForm" :rules="registerRules" label-width="100px">
@@ -23,13 +22,9 @@
 <script lang="ts">
 import { defineComponent} from 'vue';
 import { register } from '../../api/user';
-import { Navbar } from '../../layout/components';
 import { ElMessage } from 'element-plus';
 export default defineComponent({
     name: 'Register',
-    components: {
-        Navbar,
-    },
     data() {
         return {
             registerForm: {
