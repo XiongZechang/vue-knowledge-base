@@ -1,106 +1,169 @@
 <template>
-  <div class="k_index">
-      <Navbar/>
-      <!-- <Breadcrumb/> -->
-      <div class="k_container">
-        <el-row>
-          <el-col :span="24">
-            <el-card style="max-width: 100%">
-              <template #header>
-                <div class="card-header">
-                  <span>知识列表</span>
-                </div>
-              </template>
-              <p v-for="(knowledgebase, index) in knowledgeList" :key="index">
-                <span @click="getKnowledgeBaseDetail(index)">+</span> {{ (knowledgebase as any).kbname }}
-                <div v-for="knowledge in (knowledgebase as any).knowledge" :key="knowledge.name" style="margin-left: 20px;">
-                  {{ knowledge.name }}
-                </div>
-              </p>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-          
-          </el-col>
-          <el-col :span="18">
-            
-          </el-col>
-          <el-col :span="24">
-            <el-affix position="bottom">
-              <!-- 页脚信息 -->
-            </el-affix>
-          </el-col>
-        </el-row>
-      </div>
-      <!-- <router-view></router-view>
-      <router-link :to="{path:'/knowledge/detail'}">detail</router-link>
-      <router-link :to="{path:'/knowledge/list'}">list</router-link>
-      <router-link :to="{path:'/knowledge/add'}">add</router-link>
-      <router-link :to="{path:'/knowledge/update'}">update</router-link> -->
+  <div class="base">
+    <div class="header">
+      <Navbar />
+    </div>
+    <el-row>
+      <el-col :span="24">
+        <div class="breadcumb">
+          <el-breadcrumb :separator-icon="ArrowRight">
+            <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>知识库</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+      </el-col>
+    </el-row>
+    <el-container class="main">
+      <el-aside width="150px" class="aside">
+        <div class="spliter"> 筛选 </div>
+        <el-checkbox-group v-model="checkedChoices">
+          <el-checkbox v-for="itemc in choice" :key="itemc" :label="itemc" class="choice">
+            {{ itemc }}
+          </el-checkbox>
+        </el-checkbox-group>
+      </el-aside>
+      <el-container>
+        <el-main>
+          <div class="article-list">
+            <el-row :gutter="20">
+              <el-col :span="16" class="article-item">
+                <el-collapse v-model="activeNames">
+                  <el-collapse-item
+                    v-for="(item, index) in filteredData"
+                    :key="index"
+                    :title="item.kbname"
+                    :name="index"
+                  >
+                    <p v-for="(item1, index1) in item.knowledge" :key="index1">{{ item1.name }}</p>
+                  </el-collapse-item>
+                </el-collapse>
+              </el-col>
+            </el-row>
+          </div>
+        </el-main>
+      </el-container>
+    </el-container>
+    <Footer />
   </div>
 </template>
-<script lang="ts">
+
+<script>
 import { defineComponent } from 'vue';
 import { Navbar } from '../../layout/components';
-import { Breadcrumb } from '../../layout/components';
-import { getKnowledge, getKnowledgeDetail, getKnowledgeBaseDetail } from '../../api/knowledge';
+import { Footer } from '../../layout/components';
+import { ArrowRight } from '@element-plus/icons-vue';
+import { getKnowledge } from '../../api/knowledge';
 import { ElMessage } from 'element-plus';
 
-
 export default defineComponent({
+  name: 'KnowledgeList',
   components: {
     Navbar,
-    Breadcrumb
+    ArrowRight,
+    Footer
   },
   data() {
     return {
-      knowledgeList: []
+      data: [],
+      searchText: '',
+      choice: [],
+      checkedChoices: [],
+      activeNames: [],
+    };
+  },
+  computed: {
+    filteredData() {
+      return this.data.filter(item => this.checkedChoices.includes(item.kbname));
     }
   },
-  async mounted() {
-    const res = await getKnowledge();
-    this.knowledgeList = res.data.data;
-    if(res.status != 200){
-      ElMessage({
-            message: '数据获取失败！',
-            type: 'error',
-        })
-    }
-  },
-  methods:{
-    async getKnowledgeDetail(id: number){
-      const res = await getKnowledgeDetail(id);
-      if(res.status != 200){
+  methods: {
+    handleSearch() {
+      // Handle search logic
+      console.log('Search:', this.searchText);
+    },
+    async fetchData() {
+      const res = await getKnowledge();
+      if (res.status !== 200) {
         ElMessage({
-            message: '数据获取失败！',
-            type: 'error',
-        })
+          message: '数据获取失败！',
+          type: 'error',
+        });
+      } else {
+        this.data = res.data.data;
+        for (let i = 0; i < res.data.data.length; i++) {
+          this.choice.push(res.data.data[i].kbname);
+          this.checkedChoices.push(res.data.data[i].kbname);
+        }
       }
     },
-    async getKnowledgeBaseDetail(id: number){
-      console.log('id is:'+id)
-      const res = await getKnowledgeBaseDetail(id);
-      if(res.status != 200){
-        ElMessage({
-            message: '数据获取失败！',
-            type: 'error',
-        })
-      }
-    } 
-  
-  }
+  },
+  mounted() {
+    this.fetchData();
+  },
 });
 </script>
+
 <style lang="less" scoped>
-.k_index{
-  margin: 0 150px;
-  .k_container{
-    margin: 10px 20px;
-    .k_title{
-      line-height: 1;
-      font-weight: 500;
-      font-size: 3rem;
-    }
+.base {
+  background: #fff;
+  padding: 0 150px;
+  height: 100vh;
+  overflow-y: auto;
+  .breadcumb {
+    margin: 20px 20px 20px 100px;
+    font-weight: normal;
+    color: #eee;
+  }
+
+  .main {
+    margin: 20px 80px;
+  }
+
+  .spliter {
+    margin: 20px;
+    font-size: 20px;
+  }
+
+  .choice {
+    font-size: 20px;
+    text-decoration: none;
+  }
+  .choice:hover {
+    color: #409eff;
+  }
+
+  .aside {
+    // background: #f0f0f0;
+    margin: 20px;
+    padding: 30px;
+  }
+  .article-list {
+    margin: 20px 0;
+    width: 100%;
+  }
+
+  .article-item {
+    margin-bottom: 20px;
+  }
+
+  .card-header {
+    padding: 16px;
+    background-color: #f5f7fa;
+    border-bottom: 1px solid #ebeef5;
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .card-author {
+    margin-top: 8px;
+    color: #909399;
+  }
+
+  .card-content {
+    padding: 16px;
   }
 }
 </style>

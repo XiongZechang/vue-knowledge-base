@@ -229,7 +229,7 @@
   
   <style scoped>
   .k_index{
-    margin: 0 150px;
+    padding: 0 150px;
     height: 100%;
     /* position: relative; */
   }
@@ -329,10 +329,6 @@
   .input {
     width: 80%;
     margin-right: 5px;
-  }
-  
-  .up-load {
-    /* width: 30px; */
   }
   
   :v-deep(.el-button) {

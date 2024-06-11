@@ -1,11 +1,20 @@
 <template>
     <div class="k_index">
         <Navbar/>
-        <Breadcrumb/>
         <div class="k_container">
           <!-- 为el-form添加验证 -->
           
           <el-row>
+            <el-col :span="24">
+              <div class="breadcumb">
+                <el-breadcrumb :separator-icon="ArrowRight">
+                  <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
+                  <el-breadcrumb-item :to="{ path: '/knowledge/list'}">知识库</el-breadcrumb-item>
+                  <el-breadcrumb-item>新增知识</el-breadcrumb-item>
+                </el-breadcrumb>
+              </div>
+            </el-col>
+
             <el-col :span="24">
             <el-card>
               <p class="k_title">新建知识</p>
@@ -55,14 +64,14 @@
   <script lang="ts">
   import { defineComponent } from 'vue';
   import { Navbar } from '../../layout/components';
-  import { Breadcrumb } from '../../layout/components';
   import { ElMessage } from 'element-plus';
   import { addKnowledge } from '../../api/knowledge';
+  import { ArrowRight } from '@element-plus/icons-vue';
   
   export default defineComponent({
     components: {
       Navbar,
-      Breadcrumb
+      ArrowRight
     },
     data() {
       return {

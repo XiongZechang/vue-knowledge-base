@@ -3,7 +3,7 @@
       <div class="left-panel">
         <img src="../../assets/login-bg.svg" alt="Welcome Image" class="welcome-image"/>
         <h2>欢迎使用知识库</h2>
-        <p>知识共享，探索知识的海洋，开启智慧的世界</p>
+        <p>探索知识的海洋，开启智慧的世界</p>
       </div>
       <div class="right-panel">
         <el-form v-if="login" ref="loginForm" :model="loginForm" label-width="0px" class="login-form">
@@ -148,7 +148,8 @@
             });
             setTimeout(() => {
               this.$router.push('/login');
-            }, 3000);
+              this.login = true;
+            }, 1500);
           } else {
             ElMessage({
               message: '注册失败',

@@ -24,7 +24,7 @@
                 <el-menu-item index="/knowledge/detail">详情</el-menu-item>
             </el-sub-menu>
             <el-menu-item index="/chat">问答服务</el-menu-item>
-                <div class="inputContainer">
+                <!-- <div class="inputContainer">
                     <el-input
                         v-model="searchInput"
                         class="searchInput"
@@ -36,8 +36,14 @@
                             </el-button>
                         </template>
                     </el-input>
-                </div>
+                </div> -->
             <div class="flex-grow"/>
+            <div>
+
+            </div>
+            <el-menu-item style="width: 20px;">
+              <el-icon><Search /></el-icon>
+            </el-menu-item>
             <el-sub-menu index="/login">
                 <template #title>你好，{{ username }}</template>
                 <el-menu-item @click="logout">登出</el-menu-item>
@@ -53,7 +59,6 @@
   import { ref, onMounted } from 'vue'
   import { removeToken, getName } from '../../../utils/auth';
   const activeIndex = ref('1')
-  const searchInput = ref('')
 
   let username:string | undefined = ''
   const handleSelect = (key: string, keyPath: string[]) => {
@@ -76,11 +81,6 @@
 </script>
 
 <style lang="less" scoped>
-  .navbar{
-    // padding: 0px 50px
-    // margin : 0px 50px
-    // left: 50px;
-  }
   .flex-grow {
     flex-grow: 1;
   }
