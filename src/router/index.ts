@@ -1,5 +1,7 @@
 import type { App } from 'vue';
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import KbDetail from '../components/knowledge/kbdetail.vue';
+import Detail from '../components/knowledge/detail.vue';
 
 // import knowledgeRoutes from './module/knowledge';
 
@@ -88,7 +90,16 @@ export const publicRoutes: Array<RouteRecordRaw> = [
 			title: '404'
 		}
 	},
-
+	{
+		path: '/kb/kid=:kid',
+		name: 'KbDetail',
+		component: KbDetail,
+	  },
+	  {
+		path: '/detail/kid=:kid',
+		name: 'Detail',
+		component: Detail,
+	  },
 ];
 
 const router = createRouter({

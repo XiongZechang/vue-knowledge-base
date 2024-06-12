@@ -45,11 +45,10 @@ export function getKnowledgeBaseDetail(data: number) {
 }
 
 // 6.返回知识详情
-export function getKnowledgeDetail(data: any) {
+export function getKnowledgeDetail(kbid: any, kid: any) {
     return request({
-        url: '/user/ks/'+data.kbid+'/'+data.kid,
+        url: '/user/ks/'+kbid+'/'+kid,
         method: 'get',
-        data: data
     })
 }
 

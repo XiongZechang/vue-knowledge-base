@@ -14,7 +14,7 @@
       </el-col>
     </el-row>
     <el-container class="main">
-      <el-aside width="150px" class="aside">
+      <el-aside width="180px" class="aside">
         <div class="spliter"> 筛选 </div>
         <el-checkbox-group v-model="checkedChoices">
           <el-checkbox v-for="itemc in choice" :key="itemc" :label="itemc" class="choice">
@@ -26,15 +26,20 @@
         <el-main>
           <div class="article-list">
             <el-row :gutter="20">
-              <el-col :span="16" class="article-item">
+              <el-col :span="20" class="article-item">
                 <el-collapse v-model="activeNames">
                   <el-collapse-item
                     v-for="(item, index) in filteredData"
                     :key="index"
-                    :title="item.kbname"
                     :name="index"
                   >
-                    <p v-for="(item1, index1) in item.knowledge" :key="index1">{{ item1.name }}</p>
+                  <template #title>
+                    <!-- <span @click.native="navigateToKb(item.id)">{{ item.kbname }}</span> -->
+                    <span>{{ item.kbname }}</span>
+                    </template>
+                    <p class="knowledge" v-for="(item1, index1) in item.knowledge" :key="index1" @click.stop="navigateToDetail(item.id, item1.id)">
+                      {{ item1.name }}
+                    </p>
                   </el-collapse-item>
                 </el-collapse>
               </el-col>
@@ -95,6 +100,12 @@ export default defineComponent({
           this.checkedChoices.push(res.data.data[i].kbname);
         }
       }
+    },
+    navigateToKb(kbId) {
+      this.$router.push(`/kb/kid=${kbId}`);
+    },
+    navigateToDetail(kbId, detailId) {
+      this.$router.push(`/detail/kid=${kbId}?id=${detailId}`);
     },
   },
   mounted() {
@@ -164,6 +175,11 @@ export default defineComponent({
 
   .card-content {
     padding: 16px;
+  }
+
+  .knowledge:hover {
+    color: #409eff;
+    cursor: pointer;
   }
 }
 </style>

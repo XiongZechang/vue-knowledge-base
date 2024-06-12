@@ -1,74 +1,109 @@
 <template>
-    <div class="k_index">
-        <Navbar/>
-        <Breadcrumb/>
-        <div class="k_container">
-          <el-row>
-            <el-col :span="24">
-              <h1 class="k_title">勾股定理</h1>
-            </el-col>
-            <el-col :span="6">
-              <el-card>
-                <img src="../../assets/gougu.jpg" style="width: 100%;"/>
-                <template #footer>
-                  
-                  <p>创建日期：2024-01-01</p>
-                </template>
-              </el-card>
-            </el-col>
-            <el-col :span="18">
-              <el-card>
-                <template #header><p>ID:1234-5689-10</p></template>
-                <p id="abstract">摘要：勾股定理（英语：Pythagorean theorem / Pythagoras' theorem）
-                  是平面几何中一个基本而重要的定理。勾股定理说明，平面上的直角三角形的两条直角边的长度（
-                  较短直角边古称勾长、较长直角边古称股长）的平方和等于斜边长（古称弦长）的平方。反之，若
-                  平面上三角形中两边长的平方和等于第三边边长的平方，则它是直角三角形（直角所对的边是第三
-                  边）。勾股定理是人类早期发现并证明的重要数学定理之一。 </p>
-                <template #footer>
-                  <el-button type="primary">
-                    详细内容<el-icon class="el-icon--right"><ArrowRight /></el-icon>
-                  </el-button>
-                </template>
-              </el-card>
-         
-            </el-col>
-            <el-col :span="24">
-              <el-affix position="bottom">
-                <!-- 页脚信息 -->
-              </el-affix>
-            </el-col>
-          </el-row>
-        </div>
-        <!-- <router-view></router-view>
-        <router-link :to="{path:'/knowledge/detail'}">detail</router-link>
-        <router-link :to="{path:'/knowledge/list'}">list</router-link>
-        <router-link :to="{path:'/knowledge/add'}">add</router-link>
-        <router-link :to="{path:'/knowledge/update'}">update</router-link> -->
+  <div class="base">
+    <div class="header">
+      <Navbar />
     </div>
-  </template>
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Navbar } from '../../layout/components';
-  import { Breadcrumb } from '../../layout/components';
-  
-  export default defineComponent({
-    components: {
-      Navbar,
-      Breadcrumb
+    <el-row>
+      <el-col :span="24">
+        <div class="breadcumb">
+          <el-breadcrumb :separator-icon="ArrowRight">
+            <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/knowledge/list'}">知识库</el-breadcrumb-item>
+            <el-breadcrumb-item>{{detailData.name}}</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+      </el-col>
+    </el-row>
+    <el-container class="main">
+      <el-main>
+        <el-card v-if="detailData" style="max-width: 1000px">
+          <template #header>
+            <div class="card-header">
+              <span>{{ detailData.name }}</span>
+            </div>
+          </template>
+          <p>{{ detailData.dataContent }}</p>
+        </el-card>
+        <!-- <div v-if="detailData" class="detail">
+          <h1>{{ detailData.name }}</h1>
+          <p>{{ detailData.dataContent }}</p>
+        </div> -->
+        <div v-else class="loading">
+          <el-spinner type="pulse" />
+        </div>
+      </el-main>
+    </el-container>
+    <Footer />
+  </div>
+</template>
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { useRoute } from 'vue-router';
+import { Navbar, Footer } from '../../layout/components';
+import { ArrowRight } from '@element-plus/icons-vue';
+import { getKnowledgeDetail } from '../../api/knowledge';
+import { ElMessage } from 'element-plus';
+
+export default defineComponent({
+  name: 'Detail',
+  components: {
+    Navbar,
+    ArrowRight,
+    Footer,
+  },
+  data() {
+    return {
+      detailData: {
+        name: '',
+        dataContent: '',
+      },
+    };
+  },
+  async mounted() {
+    const route = useRoute();
+    const kbId = route.params.kid;
+    const detailId = route.query.id;
+    try {
+      const res = await getKnowledgeDetail(kbId, detailId);
+      if (res.status === 200) {
+        this.detailData = res.data.data;
+        console.log(this.detailData);
+      } else {
+        ElMessage.error('数据获取失败！');
+      }
+    } catch (error) {
+      ElMessage.error('数据获取失败！');
     }
-  });
-  </script>
-  <style lang="less" scoped>
-  .k_index{
-    margin: 0 150px;
-    .k_container{
-      margin: 10px 20px;
-      .k_title{
-        line-height: 1;
-        font-weight: 500;
-        font-size: 3rem;
+  },
+});
+</script>
+<style lang="less" scoped>
+.base {
+  background: #fff;
+  padding: 0 150px;
+  height: 100vh;
+  overflow-y: auto;
+  .breadcumb {
+    margin: 20px 20px 10px 100px;
+    font-weight: normal;
+    color: #eee;
+  }
+  .main {
+    margin: 0px 100px 20px 100px;
+    .detail {
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.8;
       }
     }
+    .loading {
+      text-align: center;
+      margin-top: 20px;
+    }
   }
-  </style>
-  
+}
+</style>
