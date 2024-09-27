@@ -51,14 +51,6 @@ export const publicRoutes: Array<RouteRecordRaw> = [
         meta: { title: 'knowledgeUpdate' }
     },
 	{
-		path: '/home',
-		name: 'home',
-		component: () => import('../components/HelloWorld.vue'),
-        meta: {
-            default: true
-        }
-	},
-	{
 		path: '/login',
 		name: 'login',
 		component: () => import('../components/login/login.vue'),

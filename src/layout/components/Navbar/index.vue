@@ -21,7 +21,7 @@
                 <el-menu-item index="/knowledge/list">知识列表</el-menu-item>
                 <el-menu-item index="/knowledge/add">添加知识</el-menu-item>
                 <el-menu-item index="/knowledge/update">修改知识</el-menu-item>
-                <el-menu-item index="/knowledge/detail">详情</el-menu-item>
+                <!-- <el-menu-item index="/knowledge/detail">详情</el-menu-item> -->
             </el-sub-menu>
             <el-menu-item index="/chat">问答服务</el-menu-item>
                 <!-- <div class="inputContainer">

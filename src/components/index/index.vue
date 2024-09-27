@@ -3,7 +3,6 @@
     <div class="navbar">
       <Navbar/>
     </div>
-    
     <main class="main">
       <h1>知识库</h1>
       <h2>探索知识的海洋，开启智慧的世界</h2>

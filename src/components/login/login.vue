@@ -7,7 +7,7 @@
       </div>
       <div class="right-panel">
         <el-form v-if="login" ref="loginForm" :model="loginForm" label-width="0px" class="login-form">
-          <h2>登录</h2>
+          <h2 style="font-size: 35px;">知识库</h2>
           <el-form-item>
             用户名
             <el-input style="height: 40px;" v-model="loginForm.username" placeholder="用户名"></el-input>
@@ -16,7 +16,7 @@
             密码
             <el-input style="height: 40px;" v-model="loginForm.password" type="password" placeholder="密码"></el-input>
           </el-form-item>
-          <el-link class="forgot-password" @click="handleForgotPassword">忘记密码</el-link>
+          <!-- <el-link class="forgot-password" @click="handleForgotPassword">忘记密码</el-link> -->
           <el-form-item>
             <el-checkbox v-model="loginForm.remember">记住我</el-checkbox>
           </el-form-item>
@@ -24,9 +24,8 @@
             <el-button type="primary" @click="Login" style="width: 500px; height: 40px;">登录</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button @click="login = !login" style="width: 500px; height:40px">注册</el-button>
+            <!-- <el-button @click="login = !login" style="width: 500px; height:40px">注册</el-button> -->
           </el-form-item>
-
         </el-form>
         <el-form v-if="!login" ref="registerForm" :model="registerForm" :rules="registerRules" label-width="0" class="register-form">
         <h2>注册</h2>
